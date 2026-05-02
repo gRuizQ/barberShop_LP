@@ -1,125 +1,46 @@
-type ButtonVariant = "primary" | "secondary" | "ghost";
+import { Button, Card, Container, Input, Textarea } from "@/components/ui";
+import ProfessionalsCarousel, {
+  type Profissional,
+} from "@/components/profissionais/ProfessionalsCarousel";
+import profissionais from "@/data/profissionais.json";
+import Image from "next/image";
+import logo from "@/images/capitalCorte_logoBG.png";
 
-function Container({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={`mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 ${className ?? ""}`}
-    >
-      {children}
-    </div>
-  );
-}
+// Importando imagens de cortes
+import corte1 from "@/images/cortes/corte1.jpg";
+import corte2 from "@/images/cortes/corte2.jpg";
+import corte3 from "@/images/cortes/corte3.jpg";
 
-function Button({
-  href,
-  children,
-  variant = "primary",
-}: {
-  href: string;
-  children: React.ReactNode;
-  variant?: ButtonVariant;
-}) {
-  const base =
-    "inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold tracking-tight transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/70";
-
-  const styles: Record<ButtonVariant, string> = {
-    primary:
-      "bg-amber-300 text-zinc-950 hover:bg-amber-200 active:bg-amber-300/90",
-    secondary:
-      "bg-white/10 text-white hover:bg-white/15 active:bg-white/10 border border-white/15",
-    ghost: "text-white/80 hover:text-white",
-  };
-
-  return (
-    <a href={href} className={`${base} ${styles[variant]}`}>
-      {children}
-    </a>
-  );
-}
-
-function Card({
-  title,
-  description,
-  highlight,
-}: {
-  title: string;
-  description: string;
-  highlight?: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-      <div className="flex items-start justify-between gap-4">
-        <h3 className="text-base font-semibold text-white">{title}</h3>
-        {highlight ? (
-          <span className="rounded-full bg-amber-300/15 px-3 py-1 text-xs font-semibold text-amber-200">
-            {highlight}
-          </span>
-        ) : null}
-      </div>
-      <p className="mt-3 text-sm leading-6 text-white/70">{description}</p>
-    </div>
-  );
-}
-
-function Input({
-  label,
-  placeholder,
-  type = "text",
-  name,
-}: {
-  label: string;
-  placeholder: string;
-  type?: string;
-  name: string;
-}) {
-  return (
-    <label className="grid gap-2">
-      <span className="text-sm font-medium text-white/80">{label}</span>
-      <input
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        className="h-11 w-full rounded-xl border border-white/10 bg-white/5 px-4 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-amber-300/70"
-      />
-    </label>
-  );
-}
-
-function Textarea({
-  label,
-  placeholder,
-  name,
-}: {
-  label: string;
-  placeholder: string;
-  name: string;
-}) {
-  return (
-    <label className="grid gap-2">
-      <span className="text-sm font-medium text-white/80">{label}</span>
-      <textarea
-        name={name}
-        placeholder={placeholder}
-        rows={4}
-        className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-amber-300/70"
-      />
-    </label>
-  );
-}
+const contact = {
+  address:
+    "Av. Mal. Floriano Peixoto, 815 - Centro, Curitiba - PR, 80010-130",
+  mapsUrl:
+    "https://www.google.com/maps/dir/?api=1&destination=Av.%20Mal.%20Floriano%20Peixoto%2C%20815%20-%20Centro%2C%20Curitiba%20-%20PR%2C%2080010-130",
+  mapsEmbedUrl:
+    "https://www.google.com/maps?q=Av.%20Mal.%20Floriano%20Peixoto%2C%20815%20-%20Centro%2C%20Curitiba%20-%20PR%2C%2080010-130&output=embed",
+  whatsappUrl: "https://wa.me/5541998150120",
+  phoneTelUrl: "tel:+5541998150120",
+  phoneLabel: "(41) 99815-0120",
+  instagramUrl: "https://www.instagram.com/capitaldocorte",
+};
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
+
+      {/* ========================== Header ========================== */}
       <header className="sticky top-0 z-20 border-b border-white/10 bg-zinc-950/80 backdrop-blur">
         <Container className="flex h-16 items-center justify-between">
           <a href="#" className="flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-amber-300 text-zinc-950 font-black">
-              C
+            <span className="relative h-9 w-9 overflow-hidden rounded-xl bg-white/5">
+              <Image
+                src={logo}
+                alt="Capital do Corte"
+                fill
+                sizes="36px"
+                className="object-contain"
+                priority
+              />
             </span>
             <span className="leading-tight">
               <span className="block text-sm font-semibold tracking-tight">
@@ -130,14 +51,20 @@ export default function Home() {
           </a>
 
           <nav className="hidden items-center gap-6 text-sm text-white/70 md:flex">
-            <a className="hover:text-white" href="#servicos">
-              Serviços
-            </a>
             <a className="hover:text-white" href="#sobre">
               Sobre
             </a>
+            <a className="hover:text-white" href="#portfolio">
+              Portifólio
+            </a>
             <a className="hover:text-white" href="#precos">
               Preços
+            </a>
+            <a className="hover:text-white" href="#profissionais">
+              Profissionais
+            </a>
+            <a className="hover:text-white" href="#avaliacoes">
+              Avaliações
             </a>
             <a className="hover:text-white" href="#contato">
               Contato
@@ -145,8 +72,21 @@ export default function Home() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button href="#contato" variant="secondary">
-              Falar no WhatsApp
+            <Button
+              href={contact.whatsappUrl}
+              variant="secondary"
+              target="_blank"
+              rel="noreferrer"
+            >
+              WhatsApp
+            </Button>
+            <Button
+              href={contact.instagramUrl}
+              variant="ghost"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram
             </Button>
             <div className="hidden sm:block">
               <Button href="#contato">Agendar horário</Button>
@@ -155,20 +95,21 @@ export default function Home() {
         </Container>
       </header>
 
+      {/* ========================== Main ========================== */}
       <main>
+
+        {/* ========================== Hero ========================== */}
         <section className="relative overflow-hidden">
           <div className="pointer-events-none absolute inset-0">
             <div className="absolute -top-24 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-amber-300/10 blur-3xl" />
             <div className="absolute -bottom-40 right-0 h-[560px] w-[560px] rounded-full bg-white/5 blur-3xl" />
           </div>
-
           <Container className="relative py-16 sm:py-20 lg:py-28">
             <div className="grid items-center gap-10 lg:grid-cols-2">
               <div>
                 <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-white/80">
-                  Atendimento com hora marcada
                   <span className="h-1 w-1 rounded-full bg-amber-300" />
-                  Centro • Bairro
+                  Av. Mal. Floriano Peixoto, 815 • Centro • Curitiba-PR
                 </p>
                 <h1 className="mt-6 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
                   Corte, barba e estilo
@@ -181,9 +122,6 @@ export default function Home() {
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                   <Button href="#contato">Agendar agora</Button>
-                  <Button href="#servicos" variant="secondary">
-                    Ver serviços
-                  </Button>
                   <a href="#precos" className="text-sm font-semibold text-white/70 hover:text-white">
                     Ver preços
                   </a>
@@ -192,88 +130,19 @@ export default function Home() {
                 <dl className="mt-10 grid max-w-xl grid-cols-3 gap-4">
                   <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                     <dt className="text-xs font-semibold text-white/60">Avaliações</dt>
-                    <dd className="mt-1 text-lg font-semibold">4,9/5</dd>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <dt className="text-xs font-semibold text-white/60">Tempo médio</dt>
-                    <dd className="mt-1 text-lg font-semibold">30min</dd>
+                    <dd className="mt-1 text-lg font-semibold">4,9/5 ★</dd>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
                     <dt className="text-xs font-semibold text-white/60">Profissionais</dt>
-                    <dd className="mt-1 text-lg font-semibold">Top</dd>
+                    <dd className="mt-1 text-lg font-semibold">4</dd>
                   </div>
                 </dl>
               </div>
-
-              <div className="relative">
-                <div className="aspect-[4/5] w-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5">
-                  <div className="flex h-full flex-col justify-end p-6">
-                    <div className="rounded-2xl border border-white/10 bg-zinc-950/60 p-5 backdrop-blur">
-                      <p className="text-xs font-semibold text-white/60">
-                        Destaque
-                      </p>
-                      <p className="mt-1 text-base font-semibold">
-                        Pacote Corte + Barba
-                      </p>
-                      <p className="mt-2 text-sm text-white/70">
-                        Finalização inclusa e toalha quente.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </Container>
         </section>
 
-        <section id="servicos" className="border-t border-white/10 bg-zinc-950">
-          <Container className="py-16 sm:py-20">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-                  Serviços
-                </h2>
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-white/70">
-                  Escolha o que combina com você. Trabalhamos com técnicas atuais
-                  e acabamento preciso.
-                </p>
-              </div>
-              <Button href="#contato" variant="secondary">
-                Agendar
-              </Button>
-            </div>
-
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <Card
-                title="Corte clássico"
-                description="Degradê, social ou na tesoura — alinhamento e finalização."
-              />
-              <Card
-                title="Barba completa"
-                description="Desenho, alinhamento e hidratação para um visual impecável."
-                highlight="Toalha quente"
-              />
-              <Card
-                title="Corte + barba"
-                description="O pacote mais pedido: praticidade e estilo no mesmo horário."
-                highlight="Mais vendido"
-              />
-              <Card
-                title="Sobrancelha"
-                description="Modelagem discreta para valorizar o olhar sem exageros."
-              />
-              <Card
-                title="Pezinho e acabamento"
-                description="Retoque rápido para manter o visual em dia."
-              />
-              <Card
-                title="Finalização"
-                description="Pomada/óleo e orientação do que usar no seu tipo de cabelo."
-              />
-            </div>
-          </Container>
-        </section>
-
+        {/* ========================== Sobre ========================== */}
         <section id="sobre" className="border-t border-white/10">
           <Container className="py-16 sm:py-20">
             <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
@@ -313,16 +182,62 @@ export default function Home() {
                     <p className="text-xs font-semibold text-white/60">Clientes</p>
                     <p className="mt-1 text-lg font-semibold">+1k</p>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-zinc-950/40 p-4">
-                    <p className="text-xs font-semibold text-white/60">Retorno</p>
-                    <p className="mt-1 text-lg font-semibold">Alto</p>
-                  </div>
                 </div>
               </div>
             </div>
           </Container>
         </section>
 
+        {/* ======================== Portifólio ======================== */}
+        <section id="portfolio" className="border-t border-white/10">
+          <Container className="py-16 sm:py-20">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+                  Portifólio
+                </h2>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-white/70">
+                  Confira nossos trabalhos e veja como fazemos a diferença.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+                <Image
+                  src={corte1}
+                  alt="Trabalho de corte 1"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  placeholder="blur"
+                />
+              </div>
+              <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+                <Image
+                  src={corte2}
+                  alt="Trabalho de corte 2"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  placeholder="blur"
+                />
+              </div>
+              <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+                <Image
+                  src={corte3}
+                  alt="Trabalho de corte 3"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  placeholder="blur"
+                />
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* ========================== Preços ========================== */}
         <section id="precos" className="border-t border-white/10 bg-zinc-950">
           <Container className="py-16 sm:py-20">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -338,10 +253,6 @@ export default function Home() {
                 <p className="mt-3 text-3xl font-semibold tracking-tight">
                   R$ 40
                 </p>
-                <p className="mt-2 text-sm text-white/70">Corte + finalização.</p>
-                <div className="mt-6">
-                  <Button href="#contato">Agendar</Button>
-                </div>
               </div>
 
               <div className="rounded-3xl border border-amber-300/30 bg-amber-300/10 p-6">
@@ -349,12 +260,6 @@ export default function Home() {
                 <p className="mt-3 text-3xl font-semibold tracking-tight">
                   R$ 70
                 </p>
-                <p className="mt-2 text-sm text-white/70">
-                  Pacote completo com toalha quente.
-                </p>
-                <div className="mt-6">
-                  <Button href="#contato">Agendar</Button>
-                </div>
               </div>
 
               <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
@@ -362,16 +267,38 @@ export default function Home() {
                 <p className="mt-3 text-3xl font-semibold tracking-tight">
                   R$ 35
                 </p>
-                <p className="mt-2 text-sm text-white/70">Desenho e hidratação.</p>
-                <div className="mt-6">
-                  <Button href="#contato">Agendar</Button>
-                </div>
               </div>
             </div>
           </Container>
         </section>
 
-        <section className="border-t border-white/10">
+        {/* ========================== Profissionais ========================== */}
+        <section id="profissionais" className="border-t border-white/10">
+          <Container className="py-16 sm:py-20">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+                  Profissionais
+                </h2>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-white/70">
+                  Escolha seu barbeiro e agende com quem combina com seu estilo.
+                </p>
+              </div>
+              <Button href="#contato" variant="secondary">
+                Agendar
+              </Button>
+            </div>
+
+            <div className="mt-10">
+              <ProfessionalsCarousel
+                profissionais={profissionais as unknown as Profissional[]}
+              />
+            </div>
+          </Container>
+        </section>
+
+        {/* ========================== Avaliações ========================== */}
+        <section id="avaliacoes" className="border-t border-white/10">
           <Container className="py-16 sm:py-20">
             <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
               O que falam da gente
@@ -397,6 +324,7 @@ export default function Home() {
           </Container>
         </section>
 
+        {/* ========================== Contato ========================== */}
         <section id="contato" className="border-t border-white/10 bg-zinc-950">
           <Container className="py-16 sm:py-20">
             <div className="grid gap-10 lg:grid-cols-2">
@@ -410,22 +338,77 @@ export default function Home() {
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <Button href="https://wa.me/5500000000000" variant="secondary">
+                  <Button href={contact.whatsappUrl} variant="secondary">
                     WhatsApp
                   </Button>
-                  <Button href="tel:+5500000000000" variant="ghost">
+                  <Button href={contact.phoneTelUrl} variant="ghost">
                     Ligar
                   </Button>
+                  <a
+                    href={contact.instagramUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold tracking-tight text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/70"
+                  >
+                    Instagram
+                  </a>
                 </div>
 
                 <div className="mt-10 rounded-3xl border border-white/10 bg-white/5 p-6">
-                  <p className="text-sm font-semibold">Endereço</p>
-                  <p className="mt-2 text-sm text-white/70">
-                    Rua Exemplo, 123 • Centro
-                    <br />
-                    Seg a Sáb • 09:00–20:00
-                  </p>
-                  <div className="mt-6 aspect-[16/10] w-full rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5" />
+                  <p className="text-sm font-semibold">Contato</p>
+                  <div className="mt-3 grid gap-4 text-sm text-white/70">
+                    <div>
+                      <p className="text-xs font-semibold text-white/60">
+                        Telefone / WhatsApp
+                      </p>
+                      <a
+                        href={contact.phoneTelUrl}
+                        className="mt-1 inline-flex font-semibold text-white/80 hover:text-white"
+                      >
+                        {contact.phoneLabel}
+                      </a>
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-semibold text-white/60">
+                        Instagram
+                      </p>
+                      <a
+                        href={contact.instagramUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-1 inline-flex font-semibold text-white/80 hover:text-white"
+                      >
+                        @capitaldocorte
+                      </a>
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-semibold text-white/60">
+                        Endereço
+                      </p>
+                      <p className="mt-1">{contact.address}</p>
+                      <a
+                        href={contact.mapsUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-2 inline-flex text-sm font-semibold text-amber-200 hover:text-amber-100"
+                      >
+                        Ver rota no Google Maps
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/10">
+                    <iframe
+                      title="Mapa - Capital do Corte"
+                      src={contact.mapsEmbedUrl}
+                      className="h-full w-full"
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      allowFullScreen
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -439,7 +422,7 @@ export default function Home() {
                   <Input
                     name="telefone"
                     label="Telefone"
-                    placeholder="(11) 99999-9999"
+                    placeholder="(41) 99815-0120"
                     type="tel"
                   />
                   <Input
@@ -470,6 +453,7 @@ export default function Home() {
         </section>
       </main>
 
+      {/* ========================== Footer ========================== */}
       <footer className="border-t border-white/10">
         <Container className="py-10">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
@@ -478,13 +462,22 @@ export default function Home() {
               reservados.
             </p>
             <div className="flex items-center gap-4 text-sm">
-              <a className="text-white/60 hover:text-white" href="#servicos">
-                Serviços
+              <a className="hover:text-white" href="#sobre">
+                Sobre
               </a>
-              <a className="text-white/60 hover:text-white" href="#precos">
+              <a className="hover:text-white" href="#portfolio">
+                Portifólio
+              </a>
+              <a className="hover:text-white" href="#precos">
                 Preços
               </a>
-              <a className="text-white/60 hover:text-white" href="#contato">
+              <a className="hover:text-white" href="#profissionais">
+                Profissionais
+              </a>
+              <a className="hover:text-white" href="#avaliacoes">
+                Avaliações
+              </a>
+              <a className="hover:text-white" href="#contato">
                 Contato
               </a>
             </div>

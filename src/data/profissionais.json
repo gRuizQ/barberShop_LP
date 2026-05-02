@@ -1,0 +1,34 @@
+[
+  {
+    "id": "barbeiro-1",
+    "nome": "Rafael Silva",
+    "idade": 28,
+    "avaliacao": 4.9,
+    "experiencias": ["Degradê e navalha", "Barba com toalha quente", "Visagismo"],
+    "imagem": "https://placehold.co/600x750?text=Rafael"
+  },
+  {
+    "id": "barbeiro-2",
+    "nome": "Bruno Almeida",
+    "idade": 32,
+    "avaliacao": 4.8,
+    "experiencias": ["Corte clássico na tesoura", "Acabamento e pezinho", "Barboterapia"],
+    "imagem": "https://placehold.co/600x750?text=Bruno"
+  },
+  {
+    "id": "barbeiro-3",
+    "nome": "Diego Santos",
+    "idade": 26,
+    "avaliacao": 4.7,
+    "experiencias": ["Degradê moderno", "Finalização com pomada/óleo", "Sobrancelha"],
+    "imagem": "https://placehold.co/600x750?text=Diego"
+  },
+  {
+    "id": "barbeiro-4",
+    "nome": "Lucas Pereira",
+    "idade": 30,
+    "avaliacao": 5.0,
+    "experiencias": ["Corte + barba (combo)", "Risco e desenho", "Consultoria de estilo"],
+    "imagem": "https://placehold.co/600x750?text=Lucas"
+  }
+]
