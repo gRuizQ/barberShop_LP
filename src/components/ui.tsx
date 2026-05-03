@@ -1,17 +1,19 @@
-import type { ReactNode } from "react";
+import type { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 
 export type ButtonVariant = "primary" | "secondary" | "ghost";
 
 export function Container({
   children,
   className,
+  ...rest
 }: {
   children: ReactNode;
   className?: string;
-}) {
+} & HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={`mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 ${className ?? ""}`}
+      {...rest}
     >
       {children}
     </div>
@@ -22,15 +24,14 @@ export function Button({
   href,
   children,
   variant = "primary",
-  target,
-  rel,
+  className,
+  ...rest
 }: {
   href: string;
   children: ReactNode;
   variant?: ButtonVariant;
-  target?: string;
-  rel?: string;
-}) {
+  className?: string;
+} & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "children">) {
   const base =
     "inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold tracking-tight transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/70";
 
@@ -45,9 +46,8 @@ export function Button({
   return (
     <a
       href={href}
-      target={target}
-      rel={rel}
-      className={`${base} ${styles[variant]}`}
+      className={`${base} ${styles[variant]} ${className ?? ""}`}
+      {...rest}
     >
       {children}
     </a>

@@ -2,11 +2,10 @@ import { Button, Card, Container, Input, Textarea } from "@/components/ui";
 import ProfessionalsCarousel, {
   type Profissional,
 } from "@/components/profissionais/ProfessionalsCarousel";
+import ScrollHeader from "@/components/ScrollHeader";
 import profissionais from "@/data/profissionais.json";
 import Image from "next/image";
-import logo from "@/images/capitalCorte_logoBG.png";
 
-// Importando imagens de cortes
 import corte1 from "@/images/cortes/corte1.jpg";
 import corte2 from "@/images/cortes/corte2.jpg";
 import corte3 from "@/images/cortes/corte3.jpg";
@@ -29,74 +28,15 @@ export default function Home() {
     <div className="min-h-screen bg-zinc-950 text-white">
 
       {/* ========================== Header ========================== */}
-      <header className="sticky top-0 z-20 border-b border-white/10 bg-zinc-950/80 backdrop-blur">
-        <Container className="flex h-16 items-center justify-between">
-          <a href="#" className="flex items-center gap-3">
-            <span className="relative h-9 w-9 overflow-hidden rounded-xl bg-white/5">
-              <Image
-                src={logo}
-                alt="Capital do Corte"
-                fill
-                sizes="36px"
-                className="object-contain"
-                priority
-              />
-            </span>
-            <span className="leading-tight">
-              <span className="block text-sm font-semibold tracking-tight">
-                Capital do Corte
-              </span>
-              <span className="block text-xs text-white/60">Barbearia</span>
-            </span>
-          </a>
-
-          <nav className="hidden items-center gap-6 text-sm text-white/70 md:flex">
-            <a className="hover:text-white" href="#sobre">
-              Sobre
-            </a>
-            <a className="hover:text-white" href="#portfolio">
-              Portifólio
-            </a>
-            <a className="hover:text-white" href="#precos">
-              Preços
-            </a>
-            <a className="hover:text-white" href="#profissionais">
-              Profissionais
-            </a>
-            <a className="hover:text-white" href="#avaliacoes">
-              Avaliações
-            </a>
-            <a className="hover:text-white" href="#contato">
-              Contato
-            </a>
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <Button
-              href={contact.whatsappUrl}
-              variant="secondary"
-              target="_blank"
-              rel="noreferrer"
-            >
-              WhatsApp
-            </Button>
-            <Button
-              href={contact.instagramUrl}
-              variant="ghost"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Instagram
-            </Button>
-            <div className="hidden sm:block">
-              <Button href="#contato">Agendar horário</Button>
-            </div>
-          </div>
-        </Container>
-      </header>
+      <ScrollHeader
+        contact={{
+          whatsappUrl: contact.whatsappUrl,
+          instagramUrl: contact.instagramUrl,
+        }}
+      />
 
       {/* ========================== Main ========================== */}
-      <main>
+      <main className="pt-24">
 
         {/* ========================== Hero ========================== */}
         <section className="relative overflow-hidden">
@@ -341,17 +281,12 @@ export default function Home() {
                   <Button href={contact.whatsappUrl} variant="secondary">
                     WhatsApp
                   </Button>
-                  <Button href={contact.phoneTelUrl} variant="ghost">
+                  <Button href={contact.instagramUrl} variant="secondary">
+                    Instagram
+                  </Button>
+                  <Button href={contact.phoneTelUrl} variant="secondary">
                     Ligar
                   </Button>
-                  <a
-                    href={contact.instagramUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold tracking-tight text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/70"
-                  >
-                    Instagram
-                  </a>
                 </div>
 
                 <div className="mt-10 rounded-3xl border border-white/10 bg-white/5 p-6">
@@ -461,7 +396,7 @@ export default function Home() {
               © {new Date().getFullYear()} Capital do Corte. Todos os direitos
               reservados.
             </p>
-            <div className="flex items-center gap-4 text-sm">
+            <nav className="hidden items-center gap-6 text-sm text-white/70 md:flex">
               <a className="hover:text-white" href="#sobre">
                 Sobre
               </a>
@@ -480,7 +415,7 @@ export default function Home() {
               <a className="hover:text-white" href="#contato">
                 Contato
               </a>
-            </div>
+            </nav>
           </div>
         </Container>
       </footer>
