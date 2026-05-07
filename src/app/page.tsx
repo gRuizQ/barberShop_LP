@@ -11,16 +11,17 @@ import corte2 from "@/images/cortes/corte2.jpg";
 import corte3 from "@/images/cortes/corte3.jpg";
 
 const contact = {
+  name: "Nome Barbearia",
   address:
-    "Av. Mal. Floriano Peixoto, 815 - Centro, Curitiba - PR, 80010-130",
+    "R. Nome Rua, 123 - Bairro, Cidade - PR, 80020-180",
   mapsUrl:
-    "https://www.google.com/maps/dir/?api=1&destination=Av.%20Mal.%20Floriano%20Peixoto%2C%20815%20-%20Centro%2C%20Curitiba%20-%20PR%2C%2080010-130",
+    "https://www.google.com/maps/dir/?api=1&destination=R.%20Barao%20do%20Serro%20Azul%2C%2031%20-%20Centro%2C%20Curitiba%20-%20PR%2C%2080020-180",
   mapsEmbedUrl:
-    "https://www.google.com/maps?q=Av.%20Mal.%20Floriano%20Peixoto%2C%20815%20-%20Centro%2C%20Curitiba%20-%20PR%2C%2080010-130&output=embed",
-  whatsappUrl: "https://wa.me/5541998150120",
-  phoneTelUrl: "tel:+5541998150120",
-  phoneLabel: "(41) 99815-0120",
-  instagramUrl: "https://www.instagram.com/capitaldocorte",
+    "https://www.google.com/maps?q=R.%20Barao%20do%20Serro%20Azul%2C%2031%20-%20Centro%2C%20Curitiba%20-%20PR%2C%2080020-180&output=embed",
+  whatsappUrl: "https://wa.me/554199999990",
+  phoneTelUrl: "tel:+554199999990",
+  phoneLabel: "(41) 9999-9990",
+  instagramUrl: "https://www.instagram.com/barbershop",
 };
 
 export default function Home() {
@@ -30,6 +31,7 @@ export default function Home() {
       {/* ========================== Header ========================== */}
       <ScrollHeader
         contact={{
+          name: contact.name,
           whatsappUrl: contact.whatsappUrl,
           instagramUrl: contact.instagramUrl,
         }}
@@ -49,7 +51,7 @@ export default function Home() {
               <div>
                 <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-white/80">
                   <span className="h-1 w-1 rounded-full bg-amber-300" />
-                  Av. Mal. Floriano Peixoto, 815 • Centro • Curitiba-PR
+                  {contact.address}
                 </p>
                 <h1 className="mt-6 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
                   Corte, barba e estilo
@@ -88,7 +90,7 @@ export default function Home() {
             <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-                  Sobre a Capital do Corte
+                  Sobre a {contact.name}
                 </h2>
                 <p className="mt-4 text-sm leading-6 text-white/70">
                   A gente acredita que barbearia é mais do que um corte: é um
@@ -314,7 +316,7 @@ export default function Home() {
                         rel="noreferrer"
                         className="mt-1 inline-flex font-semibold text-white/80 hover:text-white"
                       >
-                        @capitaldocorte
+                        @{contact.instagramUrl.split("/")[3]}
                       </a>
                     </div>
 
@@ -357,7 +359,7 @@ export default function Home() {
                   <Input
                     name="telefone"
                     label="Telefone"
-                    placeholder="(41) 99815-0120"
+                    placeholder={contact.phoneLabel}
                     type="tel"
                   />
                   <Input
@@ -393,7 +395,7 @@ export default function Home() {
         <Container className="py-10">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-white/60">
-              © {new Date().getFullYear()} Capital do Corte. Todos os direitos
+              © {new Date().getFullYear()} {contact.name}. Todos os direitos
               reservados.
             </p>
             <nav className="hidden items-center gap-6 text-sm text-white/70 md:flex">

@@ -5,9 +5,10 @@ import Image from "next/image";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 import { Button, Container } from "@/components/ui";
-import logo from "@/images/capitalCorte_logoBG.png";
+import logo from "@/images/BarberShop_logo-circle.png";
 
 type ContactInfo = {
+  name: string;
   whatsappUrl: string;
   instagramUrl: string;
 };
@@ -165,19 +166,19 @@ export default function ScrollHeader({ contact }: ScrollHeaderProps) {
           className="flex items-center gap-3"
           tabIndex={hidden ? -1 : 0}
         >
-          <span className="relative h-9 w-9 overflow-hidden rounded-xl bg-white/5">
+          <span className="relative h-11 w-11 overflow-hidden rounded-xl bg-white/5">
             <Image
               src={logo}
               alt="Capital do Corte"
               fill
-              sizes="36px"
+              sizes="44px"
               className="object-contain"
               priority
             />
           </span>
           <span className="leading-tight">
             <span className="block text-sm font-semibold tracking-tight">
-              Capital do Corte
+              {contact.name}
             </span>
             <span className="block text-xs text-white/60">Barbearia</span>
           </span>
